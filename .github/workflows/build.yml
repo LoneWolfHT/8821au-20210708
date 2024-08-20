@@ -34,10 +34,6 @@ jobs:
         compiler:
           - cc:  gcc-12
             cxx: g++-12
-          - cc:  gcc-11
-            cxx: g++-11
-          - cc:  gcc-10
-            cxx: g++-10
 
     name: Ubuntu 22.04 ${{ matrix.compiler.cc }}
 
@@ -57,6 +53,12 @@ jobs:
           echo "::group::build"
           make -j ${CPUS} CC=${{ matrix.compiler.cc }} CXX=${{ matrix.compiler.cxx }}
           echo "::endgroup::"
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+            name: Artifact
+            path: ./
+          
 
   ubuntu_20_04:
     runs-on: ubuntu-20.04
